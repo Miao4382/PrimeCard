@@ -1,10 +1,13 @@
 package com.example.primecard
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,13 +65,10 @@ class MainActivity : AppCompatActivity() {
           * display animation and move to next set of cards
           * */
           if (sum == optimal[0]) {
-            /*
-            *
-            * Display Animations Here!
-            *
-            * */
+            // display burst of confetti in the center of screen
+            burstFromCenter()
             // go to next set of cards
-            Toast.makeText(this, "You got OPTIMAL" + sum.toString() + " score!!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "WOW!! You got OPTIMAL " + sum.toString() + " score!!!", Toast.LENGTH_SHORT).show()
             position = checkNextCards(position, cards, totalScore)
           }
 
@@ -461,4 +461,19 @@ class MainActivity : AppCompatActivity() {
     return sum
   }
 
+  // burst Konfetti!!
+  private fun burstFromCenter() {
+    val colors = intArrayOf(0x00fce18a, 0x00ff726d, 0x00b48def, 0x00f4306d)
+    viewKonfetti.build()
+      .addColors(*colors)
+      .setDirection(0.0, 359.0)
+      .setSpeed(1f, 5f)
+      .setFadeOutEnabled(true)
+      .setTimeToLive(2000L)
+      .addShapes(Shape.RECT, Shape.CIRCLE)
+      .addSizes(Size(12))
+      .setPosition(viewKonfetti.x + viewKonfetti.width / 2, viewKonfetti.y + viewKonfetti.height / 3)
+      .burst(75)
+    viewKonfetti.bringToFront()
+  }
 }
