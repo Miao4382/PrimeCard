@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     val cards = arr.toMutableList()
 
     // variables
-    var position: Int = 56     // create counter to keep the current gaming position (index of last card)
+    var position: Int = 53     // create counter to keep the current gaming position (index of last card)
     var totalScore: Int = 0   // total score of player
 
     // display beginning screen
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
       }
       // Case 3: should calculate score in this case
       else {
-        // calculate card sum
+        // calculate selected card sum
         var sum: Int = getCardsSum(position, cards)
 
         // calculate score, update score and display Toast
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
           /* Case 2: user missed optimal score
           * should display optimal cards, mask all cards not optimal
           * and change accept button to Next (so user can take a look at optimal cards before
-          * proceeding to next sets of cards
+          * proceeding to next sets of cards after user click "Next" button
           * */
           else {
             btnAccept.text = "Next"
@@ -431,7 +431,7 @@ class MainActivity : AppCompatActivity() {
     checkBox4.isChecked = false
   }
 
-  // checkNextCards(): will check next set of cards
+  // checkNextCards(): will check next set of cards: update image and return updated position
   private fun checkNextCards(position: Int, cards: MutableList<Int>, totalScore: Int): Int {
     var positionUpdate = position + 4
     updateImg(positionUpdate, cards)
@@ -467,13 +467,13 @@ class MainActivity : AppCompatActivity() {
     viewKonfetti.build()
       .addColors(*colors)
       .setDirection(0.0, 359.0)
-      .setSpeed(1f, 5f)
+      .setSpeed(2f, 7f)
       .setFadeOutEnabled(true)
       .setTimeToLive(2000L)
       .addShapes(Shape.RECT, Shape.CIRCLE)
       .addSizes(Size(12))
       .setPosition(viewKonfetti.x + viewKonfetti.width / 2, viewKonfetti.y + viewKonfetti.height / 3)
-      .burst(75)
+      .burst(100)
     viewKonfetti.bringToFront()
   }
 }
